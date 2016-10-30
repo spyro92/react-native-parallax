@@ -12,6 +12,7 @@ var {
   StyleSheet,
   Dimensions,
   TouchableHighlight,
+  Platform
 } = require('react-native');
 
 var WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -84,7 +85,7 @@ var ParallaxImage = React.createClass({
       height: height + parallaxPadding * 2,
       width: width,
     };
-    if(scrollY) {
+    if(scrollY && Platform.OS === 'ios') {
       parallaxStyle.transform = [
         {
           translateY:   scrollY.interpolate({
@@ -94,7 +95,7 @@ var ParallaxImage = React.createClass({
           extrapolate:  'clamp',
         },
       ];
-    } else {
+    } else if(Platform.OS === 'ios') {
       parallaxStyle.transform = [
         { translateY: -parallaxPadding },
       ];
